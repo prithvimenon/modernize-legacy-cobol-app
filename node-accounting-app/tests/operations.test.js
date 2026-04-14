@@ -44,3 +44,14 @@ test('TC-3.3: debit(0) leaves balance unchanged at 1000.00', () => {
   expect(result).toEqual({ success: true, balance: 1000.00 });
   expect(viewBalance()).toBe(1000.00);
 });
+
+// Negative amount validation (mirrors COBOL PIC 9(6)V99 unsigned constraint)
+test('credit with negative amount throws an error', () => {
+  expect(() => credit(-500)).toThrow('Amount must be a non-negative number.');
+  expect(viewBalance()).toBe(1000.00); // balance unchanged
+});
+
+test('debit with negative amount throws an error', () => {
+  expect(() => debit(-500)).toThrow('Amount must be a non-negative number.');
+  expect(viewBalance()).toBe(1000.00); // balance unchanged
+});

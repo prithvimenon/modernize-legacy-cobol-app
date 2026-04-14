@@ -5,6 +5,9 @@ function viewBalance() {
 }
 
 function credit(amount) {
+  if (typeof amount !== 'number' || amount < 0) {
+    throw new Error('Amount must be a non-negative number.');
+  }
   const current = getBalance();
   const newBalance = current + amount;
   setBalance(newBalance);
@@ -12,6 +15,9 @@ function credit(amount) {
 }
 
 function debit(amount) {
+  if (typeof amount !== 'number' || amount < 0) {
+    throw new Error('Amount must be a non-negative number.');
+  }
   const current = getBalance();
   if (current >= amount) {
     const newBalance = current - amount;
